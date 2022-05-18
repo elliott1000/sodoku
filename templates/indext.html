@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    </head>
+    <body>
+        <div class="grid-container">
+            <input class="grid-item" id="tl"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item" id="tr">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item">
+            <input class="grid-item" id="bl"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item"> <input class="grid-item" id="br">
+
+          </div>
+       <div id="bcon"> <button onclick="sendit()" id="sub">Submit</button> </div>
+        <br>
+        <input type="text" name="invisible" id="invis">
+    </body>
+    <script>
+        function sendit(){
+        inputs = document.getElementsByClassName('grid-item')
+        packagesend = ''
+        for(i=0; i<81; i++){
+            if (inputs[i].value != ''){
+                packagesend += inputs[i].value
+            }
+            else{
+                packagesend += '0'
+            }
+        }
+        document.getElementById('invis').value = packagesend
+        var url = window.location.href
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.send(document.getElementById('invis').value);
+        setTimeout(()=>{window.location.replace("http://localhost:5000/answer");}, 1000)
+    }
+    var solved = {{ solved|safe }}
+    solved = solved.toString()
+    console.log(solved)
+    for(i=0; i<81; i++){
+    document.getElementsByClassName('grid-item')[i].value = solved[i]
+    }
+    </script>
+</html>
